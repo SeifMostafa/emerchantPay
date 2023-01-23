@@ -1,5 +1,6 @@
 package com.emearchantpay.backend.model;
 
+import com.opencsv.bean.CsvBindByName;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,17 +16,22 @@ import org.springframework.context.annotation.Scope;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Merchant {
 
    @Column
    @Id
+   @CsvBindByName
    Long id;
     @Column
-    String name,description;
-    String email;
+    @CsvBindByName
+    String name,description,email;
+
     @Column
     @NonNull
+    @CsvBindByName
     boolean status;
     @Column
+    @CsvBindByName
     int total_transaction_sum;
 }
