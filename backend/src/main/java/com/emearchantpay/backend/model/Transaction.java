@@ -1,11 +1,11 @@
 package com.emearchantpay.backend.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Positive;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -31,6 +31,10 @@ public class Transaction {
     @Column
     @Enumerated(EnumType.STRING)
     TransactionStatus status;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    TransactionType type;
 
     @Column
     @Email

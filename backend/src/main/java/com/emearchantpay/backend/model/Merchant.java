@@ -1,12 +1,12 @@
 package com.emearchantpay.backend.model;
 
 import com.opencsv.bean.CsvBindByName;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.*;
-import org.springframework.context.annotation.Scope;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table
 @Data
@@ -28,9 +28,8 @@ public class Merchant {
     String name,description,email;
 
     @Column
-    @NonNull
-    @CsvBindByName
-    boolean status;
+    @CsvBindByName(column = "status")
+    boolean active;
     @Column
     @CsvBindByName
     int total_transaction_sum;

@@ -1,27 +1,25 @@
 package com.emearchantpay.backend.controller;
 
 import com.emearchantpay.backend.model.Transaction;
+import com.emearchantpay.backend.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class TransactionController {
+    @Autowired
+    TransactionService transactionService;
 
     @GetMapping("/transactions")
     public List<Transaction> getTransactions(){
-        // TODO
-        return new ArrayList<>();
+        return transactionService.getTransactions();
     }
 
-
     @PostMapping(value = "/transaction", consumes={MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
-    public boolean submitTransaction(Transaction transaction){
-        // TODO
-        return true;
+    public boolean submitTransaction(@RequestBody Transaction transaction, @RequestParam Long merchant_id){
+        return transactionService.create(transaction,merchant_id);
     }
 }

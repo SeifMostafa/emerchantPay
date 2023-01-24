@@ -1,12 +1,12 @@
 package com.emearchantpay.backend.util;
 
+import com.emearchantpay.backend.model.Merchant;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.List;
-import  com.emearchantpay.backend.model.Merchant;
-import org.springframework.stereotype.Component;
 
 @Component
 public class MerchantFactory {

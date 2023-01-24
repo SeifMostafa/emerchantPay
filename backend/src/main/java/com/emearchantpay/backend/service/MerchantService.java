@@ -1,15 +1,20 @@
 package com.emearchantpay.backend.service;
 
 import com.emearchantpay.backend.model.Merchant;
-import com.emearchantpay.backend.repository.MerchantRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
+import java.util.List;
+
 @Service
 public interface MerchantService {
 
-    public void create(Merchant merchant) throws Exception;
+    void create(Merchant merchant) throws Exception;
 
-    public boolean delete(Long id);
+     boolean delete(Long id);
+
+    Merchant getById(Long id);
+
+
+    List<Merchant> getAll();
+
 }
