@@ -18,8 +18,8 @@ public class TransactionController {
         return transactionService.getTransactions();
     }
 
-    @PostMapping(value = "/transaction", consumes={MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
-    public boolean submitTransaction(@RequestBody Transaction transaction, @RequestParam Long merchant_id){
+    @PostMapping(value = "/transactions", consumes={MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
+    public boolean submitTransaction(@RequestBody Transaction transaction, @RequestParam long merchant_id){
         return transactionService.create(transaction,merchant_id);
     }
 }

@@ -1,5 +1,6 @@
 package com.emearchantpay.backend.service;
 
+import com.emearchantpay.backend.model.Merchant;
 import com.emearchantpay.backend.model.Transaction;
 import org.springframework.stereotype.Service;
 
@@ -15,4 +16,6 @@ public interface TransactionService {
     void delete(UUID transactin_id);
 
     List<Transaction> getByCreationTimestampAfter(Timestamp timestamp);
+
+    List<Transaction> getByMerchant(Merchant merchant);
 }

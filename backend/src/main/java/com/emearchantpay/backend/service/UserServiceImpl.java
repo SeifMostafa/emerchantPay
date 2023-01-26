@@ -6,6 +6,7 @@ import com.emearchantpay.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -51,4 +52,41 @@ public class UserServiceImpl implements UserService{
         return true;
     }
 
+    @Override
+    public boolean holdAmount(int amount) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName()).get();
+        if(user.getBalance()<amount) return false;
+        user.setOnholdBalance(user.getOnholdBalance()+amount);
+        user.setBalance(user.getBalance()-amount);
+        userRepository.save(user);
+        return true;
+    }
+
+    @Override
+    public void unholdAmount(int amount) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName()).get();
+        user.setOnholdBalance(user.getOnholdBalance()-amount);
+        user.setBalance(user.getBalance()+amount);
+        userRepository.save(user);
+    }
+
+    @Override
+    public boolean charge(int amount) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName()).get();
+        if(user.getBalance()<amount) return false;
+        user.setBalance(user.getBalance()-amount);
+        userRepository.save(user);
+        return true;
+    }
+
+    @Override
+    public void refund(int amount) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName()).get();
+        user.setBalance(user.getBalance()+amount);
+        userRepository.save(user);
+    }
 }

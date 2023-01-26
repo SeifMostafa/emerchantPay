@@ -28,6 +28,9 @@ public class User {
     @Column
     @CsvBindByName
     int balance;
+    @Column
+    int onholdBalance;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",joinColumns=@JoinColumn(name = "username", referencedColumnName = "email")
             ,inverseJoinColumns =@JoinColumn(name ="role_id", referencedColumnName = "id"))

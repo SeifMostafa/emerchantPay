@@ -5,7 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.Min;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -25,7 +25,7 @@ public class Transaction {
     UUID uuid;
 
     @Column
-    @Positive
+    @Min(value = 1, message = "the amount must be greater than zero")
     int amount;
 
     @Column

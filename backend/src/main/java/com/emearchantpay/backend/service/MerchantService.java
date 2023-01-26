@@ -17,4 +17,6 @@ public interface MerchantService {
 
     List<Merchant> getAll();
 
+    void transferMoney(int amount,Merchant merchant); // TODO
+
 }

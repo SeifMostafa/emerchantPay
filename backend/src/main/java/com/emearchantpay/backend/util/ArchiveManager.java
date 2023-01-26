@@ -18,12 +18,10 @@ public class ArchiveManager {
     public void archiveTransactions(){
         List<Transaction> transactionList = findTransactionsOneHourAgo();
         for(Transaction transaction:transactionList){
-            System.out.println(transaction.toString());
             transactionService.delete(transaction.getUuid());
         }
-
     }
-    private List<Transaction> findTransactionsOneHourAgo(){
+    public List<Transaction> findTransactionsOneHourAgo(){
         Timestamp oneHourAgoTimestamp = new Timestamp(System.currentTimeMillis() - (60 * 60 * 1000));
         return transactionService.getByCreationTimestampAfter(oneHourAgoTimestamp);
     }

@@ -10,4 +10,11 @@ public interface UserService {
     public boolean create(User user,boolean isAdmin);
 
 
+    boolean holdAmount(int amount);
+
+    void unholdAmount(int amount);
+
+    boolean charge(int amount);
+
+    void refund(int amount);
 }

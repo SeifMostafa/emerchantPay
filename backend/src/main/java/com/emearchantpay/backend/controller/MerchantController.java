@@ -20,7 +20,7 @@ public class MerchantController {
     public boolean deleteMerchant(@RequestParam(name="id",required = true)Long id){
         return merchantService.delete(id);
     }
-    @GetMapping("merchants")
+    @GetMapping("/merchants")
     public List<Merchant> getMerchants(){
         return merchantService.getAll();
     }
@@ -37,4 +37,9 @@ public class MerchantController {
             return false;
         }
     }
+    @PostMapping("/merchant")
+    public void createOrUpdate(@RequestBody Merchant merchant) throws Exception {
+        merchantService.create(merchant);
+    }
+
 }

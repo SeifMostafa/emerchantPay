@@ -13,7 +13,7 @@ public class MerchantFactory {
     public List<Merchant> getMerchants(InputStream inputStream) throws IOException {
         try (Reader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 
-            CsvToBean<com.emearchantpay.backend.model.Merchant> csvToBean = new CsvToBeanBuilder(reader)
+            CsvToBean<Merchant> csvToBean = new CsvToBeanBuilder(reader)
                     .withType(Merchant.class)
                     .withIgnoreLeadingWhiteSpace(true).withSeparator(';')
                     .build();

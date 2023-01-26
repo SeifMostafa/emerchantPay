@@ -3,7 +3,6 @@ package com.emearchantpay.backend.service;
 import com.emearchantpay.backend.model.Merchant;
 import com.emearchantpay.backend.model.Transaction;
 import com.emearchantpay.backend.repository.MerchantRepository;
-import com.emearchantpay.backend.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ public class MerchantServiceImpl implements MerchantService{
     @Autowired
     MerchantRepository merchantRepository;
     @Autowired
-    TransactionRepository transactionRepository;
+    TransactionServiceImpl transactionService;
 
     @Override
     public void create(Merchant merchant) {
@@ -23,8 +22,9 @@ public class MerchantServiceImpl implements MerchantService{
 
     @Override
     public boolean delete(Long id) {
-        List<Transaction> allByMerchant = transactionRepository.findAllByMerchant(merchantRepository.findById(id).get());
-        if (allByMerchant.isEmpty())
+        Merchant merchant = merchantRepository.findById(id).get();
+        List<Transaction> existTransactionListByMerchant = transactionService.getByMerchant(merchant);
+        if (existTransactionListByMerchant.isEmpty())
              merchantRepository.deleteById(id);
         else return false;
 
@@ -40,5 +40,12 @@ public class MerchantServiceImpl implements MerchantService{
     public List<Merchant> getAll() {
         return merchantRepository.findAll();
     }
+
+    @Override
+    public void transferMoney(int amount,Merchant merchant) {
+        merchant.setTotal_transaction_sum(merchant.getTotal_transaction_sum()+amount);
+        merchantRepository.save(merchant);
+    }
+
 
 }
