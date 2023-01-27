@@ -5,12 +5,15 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.List;
 
 @Component
 public class MerchantFactory {
-    public List<Merchant> getMerchants(InputStream inputStream) throws IOException {
+    public List<Merchant> getMerchants(InputStream inputStream) throws Exception {
         try (Reader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 
             CsvToBean<Merchant> csvToBean = new CsvToBeanBuilder(reader)

@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService{
         if (isAdmin) {
             user.setRoles(Collections.singleton(roleRepository.findByName("ROLE_ADMIN")));
         }else{
-            user.setRoles(Collections.singleton(roleRepository.findByName("ROLE_ADMIN")));
+            user.setRoles(Collections.singleton(roleRepository.findByName("ROLE_USER")));
         }
         userRepository.save(user);
         return true;

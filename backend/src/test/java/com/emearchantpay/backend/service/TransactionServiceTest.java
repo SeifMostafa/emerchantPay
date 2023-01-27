@@ -120,6 +120,7 @@ public class TransactionServiceTest {
                 .merchant(activeMerchant)
                 .type(TransactionType.AUTHORIZE)
                 .status(TransactionStatus.APPROVED)
+                .amount(10)
                 .build();
     }
     @DisplayName("Check if tried to submit transaction with inactive merchant")
@@ -180,12 +181,10 @@ public class TransactionServiceTest {
         chargeTransaction.setReference(approvedTransaction);
         when(merchantService.getById(any())).thenReturn(activeMerchant);
         when(userService.charge(chargeTransaction.getAmount())).thenReturn(true);
-
         transactionService.create(chargeTransaction,activeMerchant.getId());
 
         verify(transactionRepository,times(1)).save(any());
         Assert.assertEquals(TransactionStatus.APPROVED,chargeTransaction.getStatus());
-
         chargeTransaction.setReference(null);
     }
     @DisplayName("Check if tried to submit refund transaction without reference")

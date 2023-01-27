@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     UserFactory userFactory;
     @Autowired
-    private AuthenticationManager authenticationManager;
+    AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDTO loginDto){
@@ -43,7 +43,7 @@ public class UserController {
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
     }
     @PostMapping("/users")
-    public boolean importMerchants(@RequestParam("file") MultipartFile file){
+    public boolean importAdminUsers(@RequestParam("file") MultipartFile file){
         if (file.isEmpty()) return false;
         try{
             List<User> users  = userFactory.getUsers(file.getInputStream());

@@ -49,6 +49,12 @@ public class TransactionServiceImpl implements TransactionService{
                     else transaction.setStatus(TransactionStatus.ERROR);
                     break;
                 case CHARGE:
+                    if(transaction.getReference()!=null){
+                        if(transaction.getReference().getAmount()==transaction.getAmount() &&
+                            transaction.getReference().getCustomer_email() == transaction.getCustomer_email()){
+                            userService.unholdAmount(transaction.getReference().getAmount());
+                        }
+                    }
                     boolean charged = userService.charge(transaction.getAmount());
                     if(charged) {
                         merchantService.transferMoney(transaction.getAmount(),transaction.getMerchant());
