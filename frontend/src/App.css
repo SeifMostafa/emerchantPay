@@ -9,7 +9,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 5s alternate;
   }
 }
 
@@ -30,10 +30,10 @@
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate(-10deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(10deg);
   }
 }
 body {
@@ -58,7 +58,9 @@ a {
   width: 100% auto;
   position: relative;
 }
-
+.custom-span{
+  text-transform: uppercase;
+}
 .custom-btn.remove-margin {
   margin-bottom: 0;
 }
@@ -69,7 +71,6 @@ a {
 
 .custom-btn.custom-btn-two.custom-btn-three {
   margin: 0 auto;
-
 }
 
 .custom-btn:hover {
@@ -91,8 +92,7 @@ a {
   font-weight: bold;
 }
 
-
-nav div div ul li a {
+nav div div ul li a span {
   text-decoration: none;
   display: block;
   padding: 5px;
@@ -127,7 +127,7 @@ li {
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.04);
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 .card .card-header {

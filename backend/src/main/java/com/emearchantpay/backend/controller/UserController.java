@@ -12,6 +12,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +28,9 @@ public class UserController {
     UserFactory userFactory;
     @Autowired
     AuthenticationManager authenticationManager;
+
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDTO loginDto){
@@ -42,7 +47,7 @@ public class UserController {
 
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
     }
-    @PostMapping("/users")
+    @PostMapping("/admins")
     public boolean importAdminUsers(@RequestParam("file") MultipartFile file){
         if (file.isEmpty()) return false;
         try{
