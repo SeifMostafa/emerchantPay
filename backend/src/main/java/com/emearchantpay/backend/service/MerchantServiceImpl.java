@@ -20,6 +20,12 @@ public class MerchantServiceImpl implements MerchantService{
         merchantRepository.save(merchant);
     }
 
+    /**
+     *
+     * @param id
+     * @return true only if merchant is deleted successfully
+     * after checking if there is no transactions need this merchant.
+     */
     @Override
     public boolean delete(Long id) {
         Merchant merchant = merchantRepository.findById(id).get();
@@ -41,6 +47,11 @@ public class MerchantServiceImpl implements MerchantService{
         return merchantRepository.findAll();
     }
 
+    /**
+     * transfer money (either with positive or negative) to the merchant.
+     * @param amount
+     * @param merchant
+     */
     @Override
     public void transferMoney(int amount,Merchant merchant) {
         merchant.setTotal_transaction_sum(merchant.getTotal_transaction_sum()+amount);

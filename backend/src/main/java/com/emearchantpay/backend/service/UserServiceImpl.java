@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService{
         return true;
     }
 
+    /**
+     * to move money from available balance to on-hold balance.
+     * @param amount to be held.
+     * @return true if moving money from balance to on-hold is manageable.
+     */
     @Override
     public boolean holdAmount(int amount) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -63,6 +68,11 @@ public class UserServiceImpl implements UserService{
         return true;
     }
 
+    /**
+     *
+     * to move money from on-hold balance to availabe balance.
+     * @param amount to be un-held.
+     */
     @Override
     public void unholdAmount(int amount) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -72,6 +82,11 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
     }
 
+    /**
+     * to charge the amount from the available balance
+     * @param amount to be deducted.
+     * @return true if deduction operation is successfully done!
+     */
     @Override
     public boolean charge(int amount) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -82,6 +97,10 @@ public class UserServiceImpl implements UserService{
         return true;
     }
 
+    /**
+     * to return the money to the user as refund.
+     * @param amount to be added to the available balance
+     */
     @Override
     public void refund(int amount) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -28,6 +29,15 @@ public class TransactionServiceImpl implements TransactionService{
         return transactionRepository.findAll();
     }
 
+    /**
+     * handle 4 types of transactions: AUTHORIZE, CHARGE, REFUND & REVERSAL.
+     * update transaction status accordingly,
+     * if some logic is not as requested the transaction would be submitted with ERROR status.
+     * @param transaction to be submitted
+     * @param merchant_id the merchant that the transaction belongs to.
+     * @return false only if transaction is not submitted: if the merchant is not valid or inactive.
+     * other than that @return true.
+     */
     @Override
     public boolean create(Transaction transaction,Long merchant_id) {
         Merchant merchant = merchantService.getById(merchant_id);
@@ -51,7 +61,7 @@ public class TransactionServiceImpl implements TransactionService{
                 case CHARGE:
                     if(transaction.getReference()!=null){
                         if(transaction.getReference().getAmount()==transaction.getAmount() &&
-                            transaction.getReference().getCustomer_email() == transaction.getCustomer_email()){
+                                Objects.equals(transaction.getReference().getCustomer_email(), transaction.getCustomer_email())){
                             userService.unholdAmount(transaction.getReference().getAmount());
                         }
                     }
@@ -85,6 +95,13 @@ public class TransactionServiceImpl implements TransactionService{
         transactionRepository.save(transaction);
         return true;
     }
+
+    /**
+     * some transactions need reference transaction,
+     * to validate if APPROVED or REFUNDED is the status of the reference transaction.
+     * @param transaction to be validated.
+     * @return true if not referenced or referenced to valid transaction
+     */
     private boolean isReferencedTransactionWithValidStatus(Transaction transaction){
         if(transaction.getReference()!=null){
             TransactionStatus referencedTransactionStatus = transaction.getReference().getStatus();
@@ -101,6 +118,11 @@ public class TransactionServiceImpl implements TransactionService{
         transactionRepository.deleteById(transactin_id);
     }
 
+    /**
+     * used for archiving old transactions.
+     * @param timestamp the desired timestamp to fetch transactions before.
+     * @return list of transactions with creation timestamp before one hour.
+     */
     @Override
     public List<Transaction> getByCreationTimestampBefore(Timestamp timestamp) {
         return transactionRepository.findAllByCreationTimestampBefore(timestamp);
