@@ -11,9 +11,13 @@ class App extends Component{
     axios.post('http://localhost:8090/auth/login', 
     { email: 'csseifms@gmail.com', password: 'post1234'})
     .then(function(response) {
-  console.log("superUser is logged-in successfully!")
+      if(response.data){
+        console.log("superUser is logged-in successfully!")
+      }else{
+        alert("superUser could not login, Please turn on the backend server!");
+      }
 }).catch(function(error) {
-  Alert.error("superUser could not login, Please turn on the backend server!");
+  alert("superUser could not login, Please turn on the backend server!");
 });
 }
   render(){
@@ -22,7 +26,7 @@ class App extends Component{
         <header className="card">
           <img className="App-logo" alt="emerchantpay logo" src="logo.png"></img>
         </header>
-        <body className="center">
+        <div className="center">
           <ButtonGroup size="lg"  aria-label="Basic example">
             <Button type="button" className="custom-btn" >Display Merchants</Button>
             <Button type="button" className="custom-btn" >Display Transactions</Button>
@@ -30,7 +34,7 @@ class App extends Component{
             <FileImporter expectedResultName="admins" className="custom-btn"></FileImporter>
             <FileImporter expectedResultName="merchants" className="custom-btn"></FileImporter>
           </ButtonGroup>
-        </body>
+        </div>
       </div>
     ); 
   } 

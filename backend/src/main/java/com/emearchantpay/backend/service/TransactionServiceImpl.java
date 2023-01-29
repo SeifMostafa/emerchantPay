@@ -102,8 +102,8 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     @Override
-    public List<Transaction> getByCreationTimestampAfter(Timestamp timestamp) {
-        return transactionRepository.findAllByCreationTimestampAfter(timestamp);
+    public List<Transaction> getByCreationTimestampBefore(Timestamp timestamp) {
+        return transactionRepository.findAllByCreationTimestampBefore(timestamp);
     }
 
     @Override

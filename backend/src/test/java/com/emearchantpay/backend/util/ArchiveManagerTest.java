@@ -34,7 +34,7 @@ public class ArchiveManagerTest {
                 .merchant(Merchant.builder().name("IKEA").active(true).build())
                 .type(TransactionType.AUTHORIZE)
                 .build();
-        when(transactionService.getByCreationTimestampAfter(any()))
+        when(transactionService.getByCreationTimestampBefore(any()))
                 .thenReturn(Collections.singletonList(transactionHalfHourAgo));
 
         archiveManager.archiveTransactions();

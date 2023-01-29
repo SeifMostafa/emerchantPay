@@ -15,7 +15,7 @@ public interface TransactionService {
 
     void delete(UUID transactin_id);
 
-    List<Transaction> getByCreationTimestampAfter(Timestamp timestamp);
+    List<Transaction> getByCreationTimestampBefore(Timestamp timestamp);
 
     List<Transaction> getByMerchant(Merchant merchant);
 }

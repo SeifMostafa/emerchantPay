@@ -12,5 +12,5 @@ import java.util.UUID;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
     public List<Transaction> findAllByMerchant(Merchant merchant);
-    public List<Transaction> findAllByCreationTimestampAfter(Timestamp timestamp);
+    public List<Transaction> findAllByCreationTimestampBefore(Timestamp timestamp);
 }

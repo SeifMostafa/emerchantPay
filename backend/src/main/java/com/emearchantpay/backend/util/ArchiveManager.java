@@ -23,6 +23,6 @@ public class ArchiveManager {
     }
     public List<Transaction> findTransactionsOneHourAgo(){
         Timestamp oneHourAgoTimestamp = new Timestamp(System.currentTimeMillis() - (60 * 60 * 1000));
-        return transactionService.getByCreationTimestampAfter(oneHourAgoTimestamp);
+        return transactionService.getByCreationTimestampBefore(oneHourAgoTimestamp);
     }
 }
