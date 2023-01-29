@@ -6,6 +6,13 @@ using Springboot, Hibernate, React, PostgresSQL
 ## Usage
 make sure postgresSQL server is up and running, SpringBoot Application will connect and automatically create the setup data, use the frontend Application to display or postman to cover all the test cases.
 
+## Technical info:
+ - springboot application is run on port 8090
+ - react applicatoon is run on port 3000
+ - hibernate ddl-auto is create-drop & you can change it to update if you want to test restarting application without losing the data.
+ - database credentials is on application.properties, username: postgres, password: post1234. POSTGRES database server is run on port 5432.
+ - data separator on CSV is ',' and  Transaction Type should be all-capital letters when you try to submit transaction.
+
 # Backend
 is divided into *util*, *controller*, *service*,*repository*, *model* and *DTO* packages. The starting point is BackendApplication. SecurityConfig is needed config. to enable security layer over the app. CorsConfig to enable testing backend and frontend applications from same localhost server.
 
