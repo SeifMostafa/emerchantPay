@@ -3,8 +3,7 @@ import axios from "axios";
 
 import React, { Component } from 'react';
 import { Button } from "react-bootstrap";
-import Alert from 'react-bootstrap/Alert';
-import Popup from 'reactjs-popup';
+
 
 
 class FileImporter extends Component {
@@ -18,21 +17,23 @@ class FileImporter extends Component {
   handleOnSubmit = (e) => {
 
     e.preventDefault();
-    const { expectedResultName } = this.props;
+    const { expectedResultName, token } = this.props;
 
     if (this.state.file) {
       var formData = new FormData();
       formData.append("file", this.state.file);
-      axios.post('http://localhost:8090/auth/' + expectedResultName, formData, {
+      var urlTail = expectedResultName === 'admins' ? 'auth/' + expectedResultName : expectedResultName;
+      axios.post('http://localhost:8090/' + urlTail, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          'Authorization': token
         },
       }).then(function (response) {
         console.log(response)
         if (response.data) {
-
+          alert(expectedResultName + " imported successfully!")
         } else {
-
+          alert(expectedResultName + " could not be imported!")
         }
       }).catch(function (error) {
         console.error(error)

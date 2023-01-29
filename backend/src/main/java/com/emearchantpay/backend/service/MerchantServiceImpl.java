@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MerchantServiceImpl implements MerchantService{
@@ -17,6 +18,8 @@ public class MerchantServiceImpl implements MerchantService{
 
     @Override
     public void create(Merchant merchant) {
+        Optional<Merchant> merchant1 = merchantRepository.findById(merchant.getId());
+        if(merchant1.isPresent()) merchant.setId(merchant.getId());
         merchantRepository.save(merchant);
     }
 

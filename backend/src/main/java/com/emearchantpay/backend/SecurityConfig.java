@@ -32,8 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.httpBasic();
         http.cors(Customizer.withDefaults());
         http.csrf().disable();
-                http.authorizeRequests().
-                mvcMatchers("/auth/**","").permitAll().
-                anyRequest().authenticated().and().logout().logoutSuccessUrl("/");
+        http.authorizeRequests().
+                mvcMatchers("/auth/**","/merchant/**","/merchants/**","/transactions/**").permitAll().
+                anyRequest().authenticated();
     }
 }

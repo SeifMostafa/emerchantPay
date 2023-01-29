@@ -23,7 +23,7 @@ public class UserFactory {
 
             CsvToBean<User> csvToBean = new CsvToBeanBuilder(reader)
                     .withType(User.class)
-                    .withIgnoreLeadingWhiteSpace(true).withSeparator(';')
+                    .withIgnoreLeadingWhiteSpace(true).withSeparator(',')
                     .build();
             List<User> users = csvToBean.parse();
 

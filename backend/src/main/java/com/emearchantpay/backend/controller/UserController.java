@@ -4,6 +4,7 @@ import com.emearchantpay.backend.DTO.LoginDTO;
 import com.emearchantpay.backend.DTO.RegisterDTO;
 import com.emearchantpay.backend.model.User;
 import com.emearchantpay.backend.service.UserService;
+import com.emearchantpay.backend.util.TokenProvider;
 import com.emearchantpay.backend.util.UserFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,12 +32,15 @@ public class UserController {
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    TokenProvider tokenProvider;
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDTO loginDto){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginDto.getEmail(), loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>("User logged-in successfully!", HttpStatus.OK);
+        return new ResponseEntity<String>(tokenProvider.generate(authentication), HttpStatus.OK);
     }
     @PostMapping("/registerUser")
     public ResponseEntity<?> registerUser(@RequestBody RegisterDTO registerDTO){

@@ -1,5 +1,6 @@
 package com.emearchantpay.backend.controller;
 
+import com.emearchantpay.backend.DTO.MerchantDTO;
 import com.emearchantpay.backend.model.Merchant;
 import com.emearchantpay.backend.service.MerchantService;
 import com.emearchantpay.backend.util.MerchantFactory;
@@ -38,8 +39,14 @@ public class MerchantController {
         }
     }
     @PostMapping("/merchant")
-    public void createOrUpdate(@RequestBody Merchant merchant) throws Exception {
-        merchantService.create(merchant);
+    public void create(@RequestBody MerchantDTO merchantDTO) throws Exception {
+        Merchant merchant1 = merchantFactory.getMerchant(merchantDTO);
+        merchantService.create(merchant1);
+    }
+    @PutMapping("/merchant")
+    public void update(@RequestBody MerchantDTO merchantDTO) throws Exception {
+        Merchant merchant1 = merchantFactory.getMerchant(merchantDTO);
+        merchantService.create(merchant1);
     }
 
 }
